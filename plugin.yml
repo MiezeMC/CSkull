@@ -1,4 +1,4 @@
-name: CSkull
+name: CSkull-MMC
 main: ColinHDev\CSkull\CSkull
 version: "1.0.1"
 
@@ -14,16 +14,22 @@ permissions:
     cskull.command.skull:
         description: "This permission is required to execute the \"/skull\" command."
         default: true
+    cskull.command.skull.blacklist:
+        description: "This permission allows you to give you blacklisted skulls with the \"/skull\" command."
+        default: op
 
     cskull.cooldown.2592000:
         description: "Set the cooldown on the \"/skull\" command to one month for a player with this permission."
         default: false
     cskull.cooldown.604800:
         description: "Set the cooldown on the \"/skull\" command to one week for a player with this permission."
-        default: false
+        default: true
+    cskull.cooldown.172.800:
+        description: "Set the cooldown on the \"/skull\" command to two day for a player with this permission."
+        default: op
     cskull.cooldown.86400:
         description: "Set the cooldown on the \"/skull\" command to one day for a player with this permission."
-        default: true
+        default: op
     cskull.cooldown.none:
         description: "Disable the cooldown on the \"/skull\" command for a player with this permission."
         default: op

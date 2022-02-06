@@ -6,6 +6,8 @@ skullEntity.spawn.delay: 1
 # default value: 2, minimum value: 1
 skullEntity.spawn.maxPerTick: 2
 
+blacklist: ["implexx5", "supercrafter333"]
+
 database:
     # The database type. "sqlite" and "mysql" are supported.
     type: sqlite

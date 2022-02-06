@@ -71,6 +71,11 @@ class SkullCommand extends Command implements PluginOwned {
                                 $sender->getInventory()->addItem($item);
                                 if ($playerName === $sender->getName()) {
                                     $sender->sendMessage(ResourceManager::getInstance()->getPrefix() . ResourceManager::getInstance()->translateString("skull.success.ownSkull"));
+                                    return;
+                                }
+                                if (in_array($playerName, ResourceManager::getInstance()->getConfig()->get("blacklist", []))
+                                && !$sender->hasPermission("cskull.command.skull.blacklist")) {
+                                    $sender->sendMessage(ResourceManager::getInstance()->getPrefix() . ResourceManager::getInstance()->translateString("skull.blacklisted", [$playerName]));
                                 } else {
                                     $sender->sendMessage(ResourceManager::getInstance()->getPrefix() . ResourceManager::getInstance()->translateString("skull.success", [$playerName]));
                                 }
