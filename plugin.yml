@@ -24,7 +24,7 @@ permissions:
     cskull.cooldown.604800:
         description: "Set the cooldown on the \"/skull\" command to one week for a player with this permission."
         default: true
-    cskull.cooldown.172.800:
+    cskull.cooldown.172800:
         description: "Set the cooldown on the \"/skull\" command to two day for a player with this permission."
         default: op
     cskull.cooldown.86400:
