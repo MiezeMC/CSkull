@@ -57,6 +57,11 @@ class SkullCommand extends Command implements PluginOwned {
                         if (!$sender->isOnline()) {
                             return;
                         }
+                        if (in_array($playerName, ResourceManager::getInstance()->getConfig()->get("blacklist", []))
+                                && !$sender->hasPermission("cskull.command.skull.blacklist")) {
+                            $sender->sendMessage(ResourceManager::getInstance()->getPrefix() . ResourceManager::getInstance()->translateString("skull.blacklisted", [$playerName]));
+                        return;
+                        }
                         if (!$sender->getInventory()->canAddItem($item)) {
                             $sender->sendMessage(ResourceManager::getInstance()->getPrefix() . ResourceManager::getInstance()->translateString("skull.inventoryFull", [$playerName]));
                             return;
@@ -73,12 +78,7 @@ class SkullCommand extends Command implements PluginOwned {
                                     $sender->sendMessage(ResourceManager::getInstance()->getPrefix() . ResourceManager::getInstance()->translateString("skull.success.ownSkull"));
                                     return;
                                 }
-                                if (in_array($playerName, ResourceManager::getInstance()->getConfig()->get("blacklist", []))
-                                && !$sender->hasPermission("cskull.command.skull.blacklist")) {
-                                    $sender->sendMessage(ResourceManager::getInstance()->getPrefix() . ResourceManager::getInstance()->translateString("skull.blacklisted", [$playerName]));
-                                } else {
-                                    $sender->sendMessage(ResourceManager::getInstance()->getPrefix() . ResourceManager::getInstance()->translateString("skull.success", [$playerName]));
-                                }
+                                $sender->sendMessage(ResourceManager::getInstance()->getPrefix() . ResourceManager::getInstance()->translateString("skull.success", [$playerName]));
                             },
                             function (SqlError $error) use ($sender) : void {
                                 if (!$sender->isOnline()) {
