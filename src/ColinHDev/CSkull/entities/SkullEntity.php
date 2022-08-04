@@ -66,7 +66,7 @@ class SkullEntity extends Human implements ChunkListener {
         $this->playerName = $playerName;
         parent::__construct(
             $location,
-            new Skin($playerUUID, $skinData, "", "geometry.skullEntity", SkullEntity::GEOMETRY)
+            new Skin($playerUUID, $skinData, "", "geometry.skullEntity", self::GEOMETRY)
         );
         SkullEntityManager::getInstance()->addSkullEntity($this);
     }
@@ -88,6 +88,9 @@ class SkullEntity extends Human implements ChunkListener {
         // which includes not showing nametags.
         $this->setNameTagVisible(false);
         $this->setNameTagAlwaysVisible(false);
+
+        // Disables that experience orbs are attracted to skull entities.
+        $this->xpManager->setCanAttractXpOrbs(false);
     }
 
     protected function getInitialSizeInfo() : EntitySizeInfo {
@@ -235,12 +238,12 @@ class SkullEntity extends Human implements ChunkListener {
     public function onBlockChanged(Vector3 $block) : void {
         // This method is called when a block is changed with World::setBlockAt(), e.g. when a block is broken by an
         // explosion. That's why we need to check if this entity can still exist on its position.
-        $block = $this->getBlockAtPosition();
-        if (!SkullEntityManager::isBlockValid($block)) {
+        $blockAtPosition = $this->getBlockAtPosition();
+        if (!SkullEntityManager::isBlockValid($blockAtPosition)) {
             // It can be despawned as it's supporting skull block is broken.
             $this->flagForDespawn();
             // As the skull block was broken, we can also remove that row from the database.
-            $position = $block->getPosition();
+            $position = $blockAtPosition->getPosition();
             DataProvider::getInstance()->deleteSkullByPosition(
                 $position->world->getFolderName(),
                 $position->x,
